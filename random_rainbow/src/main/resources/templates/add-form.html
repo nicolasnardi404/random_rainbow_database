@@ -23,6 +23,14 @@
     <input type="text" th:field="*{videoLink}"
            class="form-control mb-4 w-25" placeholder="Video Link">
 
+       <div th:if="${#fields.hasErrors()}">
+       <div class="alert alert-danger">
+              <ul>
+              <li th:each="err : ${#fields.errors()}" th:text="${err}"></li>
+              </ul>
+       </div>
+       </div>
+
     <button type="submit" class="btn btn-info col-2">Save</button>
   </form>
   <hr>

@@ -1,6 +1,8 @@
 package com.randomrainbow.springboot.demosecurity.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 // if the id will be initialized at the data base how do i define the contructor
 @Entity
 @Table(name = "videos", schema = "random_rainbow")
@@ -12,10 +14,13 @@ public class Video {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User idUser;
+    @NotBlank(message = "Title is required")
     @Column(name = "title")
     private String title;
+    @NotBlank(message = "Video Description is required")
     @Column(name = "video_description")
     private String videoDescription;
+    @NotBlank(message = "Video Link is required")
     @Column(name = "video_link")
     private String videoLink;
     private int duration;

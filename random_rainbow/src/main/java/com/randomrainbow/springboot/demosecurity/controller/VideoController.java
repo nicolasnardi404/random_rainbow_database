@@ -3,9 +3,13 @@ package com.randomrainbow.springboot.demosecurity.controller;
 import com.randomrainbow.springboot.demosecurity.entity.User;
 import com.randomrainbow.springboot.demosecurity.entity.Video;
 import com.randomrainbow.springboot.demosecurity.service.VideoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,11 +53,16 @@ public class VideoController {
     }
 
     @PostMapping("/save")
-    // @ModelAttribute to solicitate the video class
-    public String saveEmployee(@PathVariable("idUser") User idUser, @ModelAttribute("video") Video video) {
+    public String saveEmployee(@PathVariable("idUser") User idUser,
+            @Valid @ModelAttribute("video") Video video,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add-form"; // Redirect to add-form, indicating errors
+        }
+
         video.setUser(idUser);
         videoService.save(video);
-        return "redirect:/users/{idUser}/videos";
+        return "redirect:/users/{idUser}/videos"; // Redirect to the videos page for the user
     }
 
     @GetMapping("/delete/{videoId}")

@@ -33,8 +33,8 @@ public class DemoSecurityConfig {
 
         http.authorizeHttpRequests(configurer -> configurer
                 .requestMatchers("/").hasRole("EMPLOYEE")
-                .requestMatchers("/leaders/**").hasRole("MANAGER")
-                .requestMatchers("/systems/**").hasRole("ADMIN")
+                // .requestMatchers("/leaders/**").hasRole("MANAGER")
+                // .requestMatchers("/systems/**").hasRole("ADMIN")
                 .requestMatchers("/videos/**").permitAll()
                 .requestMatchers("/register/**").permitAll()
                 .anyRequest().authenticated())
